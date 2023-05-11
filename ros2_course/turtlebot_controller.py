@@ -2,6 +2,8 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
+import random
+import math
 
 
 
@@ -16,22 +18,44 @@ class Turtlebot_Controller(Node):
         self.publisher = self.create_publisher(Twist,'/cmd_vel',10)
         self.cmd_vel_msg = Twist()
 
+
+       
+
     def scan_callback(self,scan_data):
         ranges = scan_data.ranges
-        for range in ranges:
-            if range < 0.2:
-                print("fal")
-                print(range)
-                self.cmd_vel_msg.linear.x = 0.0
-                self.cmd_vel_msg.angular.z = 0.0
-                self.publisher.publish(self.cmd_vel_msg)
-                return
-            
+        #for range in enumerate(ranges):
+        print(ranges[0])
+        if(ranges[0]<0.5):
+                
+                #obstacle_angle = scan_data.angle_min + range_idx * scan_data.angle_increment
+                #opposite_angle = math.atan2(math.sin(obstacle_angle),math.cos(obstacle_angle)+math.pi)
+                #self.cmd_vel_msg.linear.x = -1.0
+                #self.cmd_vel_msg.angular.z = opposite_angle
+                #self.publisher.publish(self.cmd_vel_msg)
+            self.turn(30.0,180.0)
         print("nem fal")
         self.cmd_vel_msg.linear.x = 0.2
         self.cmd_vel_msg.angular.z = 0.0
         self.publisher.publish(self.cmd_vel_msg)
-    
+
+    def turn(self, omega, angle):
+        
+        self.cmd_vel_msg.linear.x = 0.0
+        self.cmd_vel_msg.angular.z = math.radians(omega)
+        self.publisher.publish(self.cmd_vel_msg)
+
+        rate = self.create_rate(10)  # Adjust the publishing frequency as needed
+        
+        T= abs(angle/omega)
+
+        when = self.get_clock().now() + rclpy.time.Duration(seconds = T)
+
+        while(self.get_clock().now() < when) and rclpy.ok():
+            print("porog")      
+        
+            #rclpy.spin_once(self)
+        print("befejeztem a forgast")
+
 def main(args=None):
     rclpy.init(args=args)
     tbc = Turtlebot_Controller()
