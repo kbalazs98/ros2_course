@@ -28,7 +28,8 @@ setup(
             'hello = ros2_course.hello:main',
             'talker = ros2_course.talker:main',
             'turtlesim_controller = ros2_course.turtlesim_controller:main',
-            
+            'listener = ros2_course.listener:main',
+            'turtlebot_controller = ros2_course.turtlebot_controller:main',
         ],
     },
 )
