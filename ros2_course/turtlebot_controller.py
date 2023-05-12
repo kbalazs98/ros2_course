@@ -58,9 +58,9 @@ class Turtlebot_Controller(Node):
                     print("tavolsaga: ",self.ranges[i])
                     angle = i+180
                     if(angle>360):
-                        angle = angle-360+random.uniform(-40,40) 
+                        angle = angle-360+random.uniform(-30,30) 
                     else:
-                        angle = angle+random.uniform(-40,40)
+                        angle = angle+random.uniform(-30,30)
                     return angle
         return 0     
 
