@@ -3,9 +3,9 @@
 
 Turtlebot3 obstackle evasion --robotic vacuum cleaner--
 
-Installing turtlebot3 simulation package:
+Installing turtlebot3 simulation package: https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
   $ cd ~/turtlebot3_ws/src/
-  $ git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+  $ git clone -b foxy-devel 
   $ cd ~/turtlebot3_ws && colcon build --symlink-install
   
 Starting the simulation:
